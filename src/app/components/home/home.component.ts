@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -8,10 +8,17 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HomeComponent implements OnInit {
 
-    constructor(public userService: UserService) { }
+    @ViewChild('asSidebarMenu') asSidebarMenu!: ElementRef;
+
+    constructor(public userService: UserService, private renderer: Renderer2) { }
     
 
     ngOnInit(): void {
       
+    }
+
+    hiddenMenuMobile(){
+        const asSidebarMenu = this.asSidebarMenu.nativeElement;
+        this.renderer.removeClass(asSidebarMenu, 'show')
     }
 }

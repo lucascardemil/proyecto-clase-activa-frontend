@@ -1,7 +1,5 @@
-import { Component, createNgModuleRef, OnInit } from '@angular/core'
+import { Component, createNgModuleRef, Inject, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
-import { NotifierService } from 'angular-notifier'
 import { Subject } from 'src/app/models/Subject'
 import { Course } from 'src/app/models/Course'
 import { Level } from 'src/app/models/Level'
@@ -11,6 +9,9 @@ import { LevelService } from 'src/app/services/teacher/level.service'
 import { SubjectService } from 'src/app/services/teacher/subject.service'
 import { Theme } from 'src/app/models/Theme'
 import { ThemeService } from 'src/app/services/teacher/theme.service'
+
+import { NOTYF } from 'src/app/services/notyf/notyf.token'
+import { Notyf } from 'notyf';
 
 @Component({
     selector: 'app-theme',
@@ -49,7 +50,7 @@ export class ThemeComponent implements OnInit {
         private courseService: CourseService,
         private themeService: ThemeService,
         private formBuilder: FormBuilder,
-        private notifier: NotifierService,
+        @Inject(NOTYF) private notyf: Notyf
     ) { }
 
     ngOnInit(): void {
@@ -83,11 +84,11 @@ export class ThemeComponent implements OnInit {
             this.themeService.addTheme(theme).subscribe(
                 (res: any) => {
                     if (res.status === 'success') {
-                        this.notifier.notify('success', res.message)
+                        this.notyf.success(res.message)
                         this.themeAddForm.reset()
                         this.getThemes()
                     } else {
-                        this.notifier.notify('error', res.message)
+                        this.notyf.error(res.message)
                     }
                 })
         }
@@ -98,10 +99,10 @@ export class ThemeComponent implements OnInit {
             this.themeService.updateTheme(theme).subscribe(
                 (res: any) => {
                     if (res.status === 'success') {
-                        this.notifier.notify('success', res.message)
+                        this.notyf.success(res.message)
                         this.getThemes()
                     } else {
-                        this.notifier.notify('error', res.message)
+                        this.notyf.error(res.message)
                     }
                 })
         }
@@ -145,10 +146,10 @@ export class ThemeComponent implements OnInit {
         this.themeService.deleteTheme(id).subscribe(
             (res: any) => {
                 if (res.status === 'success') {
-                    this.notifier.notify('success', res.message)
+                    this.notyf.success(res.message)
                     this.getThemes()
                 } else {
-                    this.notifier.notify('error', res.message)
+                    this.notyf.error(res.message)
                 }
             })
     }

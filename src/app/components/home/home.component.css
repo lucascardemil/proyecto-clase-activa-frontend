@@ -67,4 +67,11 @@ main{
     main{
         width: 100%;
     }
+
+
+    .colapsing{
+        height: 0;
+        overflow: hidden;
+        transition: (height .35s ease);
+    }
 }

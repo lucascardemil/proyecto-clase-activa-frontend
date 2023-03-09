@@ -8,7 +8,6 @@ import { AppRoutingModule, ArrayOfComponents } from './app-routing.module';
 //Modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 
 //Providers
@@ -42,7 +41,6 @@ import { NOTYF, notyfFactory } from './services/notyf/notyf.token';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        NotifierModule,
         RutModule,
         SpinnerModule,
         CKEditorModule
